@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand">{{_title}}</a>
+      <app-sidebar *ngIf="IsLoggedIn$ | async"></app-sidebar>
+       <div class="dropdown" *ngIf="IsLoggedIn$ | async" dropdown>
+         <a class="dropdown-toggle text-light" dropdownToggle>welcome user</a>
+         <div class="dropdown-menu mt-3" *dropdownMenu>
+         <a class="dropdown-item">Edit Profile</a>
+          <div class="dropdown-divider"></div>
+         <a class="dropdown-item" (click)="logout()">Logout</a>
+         </div>
+       </div>
+         <app-forms *ngIf="(IsLoggedIn$ | async) === null" [display_form_flag]="_display_form_flag"></app-forms>
+    </div>
+</nav>
+

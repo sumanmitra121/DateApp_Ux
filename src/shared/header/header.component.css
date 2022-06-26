@@ -1,0 +1,2 @@
+.dropdown-toggle, .dropdown-item,.nav-item{cursor:pointer;text-decoration: none!important;}
+.dropdown-toggle::after{vertical-align: middle!important;}

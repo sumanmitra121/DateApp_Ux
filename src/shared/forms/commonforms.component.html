@@ -1,0 +1,69 @@
+<ng-container *ngIf="display_form_flag == 'L'">
+<form class="form-inline my-2 my-lg-0" [formGroup]="loginForms" (ngSubmit)="login()">
+  <input class="form-control mr-sm-2" type="search" placeholder="Email" formControlName="Email">
+  <input class="form-control mr-sm-2" type="password" placeholder="password" formControlName="password">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="loginForms.invalid">login</button>
+</form>
+</ng-container>
+<ng-container *ngIf="display_form_flag == 'G'">
+  <div class="container">
+    <div class="row justify-content-center">
+         <div class="col-4">
+           <form [formGroup]="signupForms" (ngSubmit)="signup()" autocomplete="off">
+                <h2 class="text-center text-primary">
+                  <i class="fa fa-arrow-left float-left" aria-hidden="true"></i>
+                  Sign up</h2>
+                <hr/>
+                <div class="form-group">
+                  <input placeholder="Enter User Name" class="form-control" formControlName="userName" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" />
+                  <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                    <div *ngIf="f.userName.errors.required">User Name is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input placeholder="Enter Email" class="form-control" formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }"/>
+                  <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                    <div *ngIf="f.Email.errors.required">Email is required</div>
+                    <div *ngIf="f.Email.errors.email">Email must be a valid email address</div>
+                  </div>
+
+                </div>
+                <div class="form-group">
+                  <input placeholder="Enter Contact number" class="form-control" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" (keypress)="preventCharacter($event)"/>
+                  <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                    <div *ngIf="f.phone.errors.required">Contact number is required</div>
+                    <div *ngIf="f.phone.errors.minlength">Contact number must be at 10 digits</div>
+                    <div *ngIf="f.phone.errors.maxlength">Contact number must be at 10 digits</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="password" placeholder="Enter password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
+                  <app-password-strength  [passwordToCheck]="f.password.value"
+                  (passwordStrength)="passwordValid($event)"></app-password-strength>
+
+                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="password" placeholder="Enter confirm password" class="form-control mt-2" formControlName="confirm_password"  [ngClass]="{ 'is-invalid': submitted && f.confirm_password.errors }"/>
+                  <div *ngIf="submitted && f.confirm_password.errors" class="invalid-feedback">
+                    <div *ngIf="f.confirm_password.errors.required">Confirm Password is required</div>
+                    <div *ngIf="f.confirm_password.errors.mustMatch">Password and confirm not match</div>
+                  </div>
+                </div>
+                <div class="form-group text-center">
+                  <button class="btn btn-success mr-2" type="submit" >
+                    <span class="spinner-border spinner-border-sm" *ngIf="_show_loader"></span> Register  <span *ngIf="_show_loader">..</span></button>
+
+                  <button class="btn btn-default mr-2" type="button" (click)="cancel()">Cancel</button>
+                </div>
+
+           </form>
+
+         </div>
+    </div>
+
+  </div>
+</ng-container>
