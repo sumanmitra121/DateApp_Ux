@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CustomValidations } from 'src/ErrorHandling/Validation';
 import { showMessage } from 'src/Model/showAlertmsg';
 import { userDtls } from 'src/Model/userDtls';
 import { UtilityService } from 'src/utilyT/-utility.service';
+
 @Component({
   selector: 'app-forms',
   templateUrl: './commonforms.component.html',
@@ -25,7 +27,7 @@ export class CommonformsComponent implements OnInit {
     confirm_password:new FormControl('',[Validators.required])
   },CustomValidations.mustMatch('password', 'confirm_password'))
   @Input() display_form_flag:string;
-  constructor(private fb:FormBuilder,private utilyT:UtilityService) {
+  constructor(private fb:FormBuilder,private utilyT:UtilityService,private route:Router) {
     this.loginForms = this.fb.group({
       Email:['',[Validators.required,Validators.email]],
       password:['',Validators.required]
@@ -39,7 +41,12 @@ export class CommonformsComponent implements OnInit {
             if(res){
               this.checkresponse(res);
             }
-    },error=>{})
+            else{
+              this.showAlert(res,'D',true)
+            }
+    },error=>{
+      this.showAlert(error.error,'D',true)
+    })
   }
   get f() {return this.signupForms.controls;}
   cancel(){this.signupForms.reset(); this.hideforms.emit(false);}
@@ -52,15 +59,15 @@ export class CommonformsComponent implements OnInit {
     }
     this.utilyT.clientCallApi('Account/register','P',this.signupForms.value).subscribe((res:userDtls) => {
           if(res){
-            this.showAlert("registration Successfull!!","success",true);
+            this.showAlert("registration Successfull!!","S",true);
             this._show_loader= false;
           }
           else{
-             this.showAlert("Registration Failed!!","danger",true)
+             this.showAlert(res,"D",true)
              this._show_loader= false;
           }
-    },error=>{
-    this.showAlert("Server did't responds!!","danger",true)
+    },(error)=>{
+    this.showAlert(error.error,"D",true)
     this._show_loader= false;
     })
 
@@ -73,15 +80,17 @@ export class CommonformsComponent implements OnInit {
   }
   checkresponse(res:userDtls){
     localStorage.setItem('user',JSON.stringify(res))
-    this.utilyT._isLoggedIn.next(res)
+    this.utilyT._isLoggedIn.next(res);
+    this.route.navigate(['main/member-lists'])
   }
   onClosed(_alert){
     this.alert.msg = '';
     this.alert.type = '';
   }
-  showAlert(_msg:any,_type:any,_isDismissble:boolean){
+   public showAlert(_msg:any,_type:any,_isDismissble:boolean){
     this.alert.msg = _msg;
     this.alert.type = _type;
     this.alert.dismissible = _isDismissble;
+    this.utilyT.showToastr(this.alert);
   }
   }
