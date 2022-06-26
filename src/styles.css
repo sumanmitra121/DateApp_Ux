@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 .titleHeader{text-align: center;}
 .titleHeader .lead{font-size: 18px;font-weight: 400;}
-.form-control{font-size: 14px!important;padding: 8px!important;font-weight: 500!important;}
+.form-control{font-size: 14px!important;padding: 8px!important;font-weight: 500!important;height: 40px;}
 .strengthBar {display: inline;list-style: none;margin: 0;padding: 6px;vertical-align: 2px;}
 .point:last-of-type {margin: 0 !important;}
 .point { background: #DDD;border-radius: 2px;display: inline-block;height: 4px;margin-right: 3px; width: 30px;}
