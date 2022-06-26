@@ -41,12 +41,14 @@ export class CommonformsComponent implements OnInit {
             if(res){
               this.checkresponse(res);
             }
-            else{
-              this.showAlert(res,'D',true)
-            }
-    },error=>{
-      this.showAlert(error.error,'D',true)
-    })
+            // else{
+            //   this.showAlert(res,'D',true)
+            // }
+    }
+    // ,error=>{
+    //   this.showAlert(error.error,'D',true)
+    // }
+    )
   }
   get f() {return this.signupForms.controls;}
   cancel(){this.signupForms.reset(); this.hideforms.emit(false);}
