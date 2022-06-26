@@ -1,2 +1,3 @@
-.dropdown-toggle, .dropdown-item,.nav-item{cursor:pointer;text-decoration: none!important;}
+.dropdown-toggle, .dropdown-item,.nav-item{cursor:pointer;text-decoration: none!important;font-size: 15px!important;font-weight: 500!important;}
 .dropdown-toggle::after{vertical-align: middle!important;}
+

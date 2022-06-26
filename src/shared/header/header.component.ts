@@ -13,8 +13,7 @@ export class HeaderComponent implements OnInit {
  @Input() _title:string;
  _display_form_flag:string = 'L';
  IsLoggedIn$:Observable<userDtls>;
-  constructor(private utilyT:UtilityService) {}
-  ngOnInit(): void {this.IsLoggedIn$ = this.utilyT.currentUser$;
-  }
+  constructor(public utilyT:UtilityService) {}
+  ngOnInit(): void {this.IsLoggedIn$ = this.utilyT.currentUser$;}
   logout(){this.utilyT.logout();}
 }

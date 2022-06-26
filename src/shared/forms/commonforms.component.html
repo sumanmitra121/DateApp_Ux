@@ -2,14 +2,13 @@
 <form class="form-inline my-2 my-lg-0" [formGroup]="loginForms" (ngSubmit)="login()">
   <input class="form-control mr-sm-2" type="search" placeholder="Email" formControlName="Email">
   <input class="form-control mr-sm-2" type="password" placeholder="password" formControlName="password">
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="loginForms.invalid">login</button>
+  <button class="btn btn-success btn-lg my-2 my-sm-0" type="submit" [disabled]="loginForms.invalid">login</button>
 </form>
 </ng-container>
 <ng-container *ngIf="display_form_flag == 'G'">
   <div class="container">
     <div class="row justify-content-center">
          <div class="col-4">
-         <alert *ngIf="alert.msg != ''" class="mt-2" (onClosed)="onClosed(alert)" [type]="alert.type" [dismissible]="alert.dismissible">{{ alert.msg }}</alert>
 
            <form [formGroup]="signupForms" (ngSubmit)="signup()" autocomplete="off">
                 <h2 class="text-center text-dark m-3">

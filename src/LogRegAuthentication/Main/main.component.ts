@@ -8,7 +8,7 @@ import { UtilityService } from 'src/utilyT/-utility.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  _title_of_the_project:string = "Welcome To Dating App";
+  _title_of_the_project:string = "Dating App";
   constructor(private utilyT:UtilityService) { }
   ngOnInit(): void {this.setCurrentUser();}
   setCurrentUser(){
