@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     this.display_mode = e;
   }
   show_page(){
-      this.utilyT.clientCallApi('erro/server-error','G','').subscribe(res=>{
+      this.utilyT.clientCallApi('error/server-error','G','').subscribe(res=>{
         console.log(res);
       })
   }
