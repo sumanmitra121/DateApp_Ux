@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CommonformsComponent } from './commonforms.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordStrengthModule } from '../password-strength/password-strength.module';
-
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 
 @NgModule({
@@ -14,7 +14,8 @@ import { PasswordStrengthModule } from '../password-strength/password-strength.m
     CommonModule,
     ReactiveFormsModule,
     PasswordStrengthModule,
-    FormsModule
+    FormsModule,
+    AlertModule.forRoot(),
   ],
   exports:[CommonformsComponent]
 })

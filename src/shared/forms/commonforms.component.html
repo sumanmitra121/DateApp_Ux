@@ -9,9 +9,11 @@
   <div class="container">
     <div class="row justify-content-center">
          <div class="col-4">
+         <alert *ngIf="alert.msg != ''" class="mt-2" (onClosed)="onClosed(alert)" [type]="alert.type" [dismissible]="alert.dismissible">{{ alert.msg }}</alert>
+
            <form [formGroup]="signupForms" (ngSubmit)="signup()" autocomplete="off">
-                <h2 class="text-center text-primary">
-                  <i class="fa fa-arrow-left float-left" aria-hidden="true"></i>
+                <h2 class="text-center text-dark m-3">
+                  <a (click)="cancel()" class="float-left" type="button"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                   Sign up</h2>
                 <hr/>
                 <div class="form-group">
@@ -54,10 +56,10 @@
                   </div>
                 </div>
                 <div class="form-group text-center">
-                  <button class="btn btn-success mr-2" type="submit" >
+                  <button class="btn btn-lg btn-success btn-block mr-2" type="submit" >
                     <span class="spinner-border spinner-border-sm" *ngIf="_show_loader"></span> Register  <span *ngIf="_show_loader">..</span></button>
 
-                  <button class="btn btn-default mr-2" type="button" (click)="cancel()">Cancel</button>
+                  <!-- <button class="btn btn-lg btn-default mr-2" type="button" (click)="cancel()">Cancel</button> -->
                 </div>
 
            </form>

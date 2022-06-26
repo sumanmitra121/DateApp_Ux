@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidations } from 'src/ErrorHandling/Validation';
+import { showMessage } from 'src/Model/showAlertmsg';
 import { userDtls } from 'src/Model/userDtls';
 import { UtilityService } from 'src/utilyT/-utility.service';
 @Component({
@@ -10,6 +11,7 @@ import { UtilityService } from 'src/utilyT/-utility.service';
 })
 export class CommonformsComponent implements OnInit {
   @Output() hideforms = new EventEmitter<boolean>();
+  alert = new showMessage();
   loginForms:FormGroup;
   _show_loader:boolean = false;
   passwordIsValid = false;
@@ -39,10 +41,8 @@ export class CommonformsComponent implements OnInit {
             }
     },error=>{})
   }
-  get f() {
-    return this.signupForms.controls;
-  }
-  cancel(){this.signupForms.reset();}
+  get f() {return this.signupForms.controls;}
+  cancel(){this.signupForms.reset(); this.hideforms.emit(false);}
   signup(){
     this._show_loader= true;
     this.submitted = true;
@@ -52,16 +52,18 @@ export class CommonformsComponent implements OnInit {
     }
     this.utilyT.clientCallApi('Account/register','P',this.signupForms.value).subscribe((res:userDtls) => {
           if(res){
-            this.checkresponse(res);
-            this.hideforms.emit(false);
+            this.showAlert("registration Successfull!!","success",true);
+            this._show_loader= false;
           }
           else{
-            this.hideforms.emit(true);
+             this.showAlert("Registration Failed!!","danger",true)
+             this._show_loader= false;
           }
-          this._show_loader= false;
-    },error=>{})
-    this._show_loader= true;
-    this.hideforms.emit(true);
+    },error=>{
+    this.showAlert("Server did't responds!!","danger",true)
+    this._show_loader= false;
+    })
+
   }
   preventCharacter(event){
      if(!CustomValidations.onlynumber(event)){event.preventDefault()}
@@ -72,5 +74,14 @@ export class CommonformsComponent implements OnInit {
   checkresponse(res:userDtls){
     localStorage.setItem('user',JSON.stringify(res))
     this.utilyT._isLoggedIn.next(res)
+  }
+  onClosed(_alert){
+    this.alert.msg = '';
+    this.alert.type = '';
+  }
+  showAlert(_msg:any,_type:any,_isDismissble:boolean){
+    this.alert.msg = _msg;
+    this.alert.type = _type;
+    this.alert.dismissible = _isDismissble;
   }
   }

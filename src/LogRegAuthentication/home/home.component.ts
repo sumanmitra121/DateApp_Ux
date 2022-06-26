@@ -8,15 +8,15 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   _display_form_flag:string = 'G';
   display_mode:boolean = false;
-   alert= {type:'',msg:''};
+  //  alert= {type:'',msg:''};
   constructor() { }
   dismissible = true;
   ngOnInit(): void {
   }
   showtitleHeader(e){
     this.display_mode = e;
-    this.alert.msg = !e ? 'Registration Successful' : 'registration failed!';
-    this.alert.type = !e ? 'success' : 'danger'
+    // this.alert.msg = !e ? 'Registration Successful' : 'registration failed!';
+    // this.alert.type = !e ? 'success' : 'danger'
   }
 
 }
