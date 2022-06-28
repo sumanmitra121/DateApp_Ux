@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilityService } from 'src/utilyT/-utility.service';
 
 @Component({
   selector: 'app-home',
@@ -9,14 +10,17 @@ export class HomeComponent implements OnInit {
   _display_form_flag:string = 'G';
   display_mode:boolean = false;
   //  alert= {type:'',msg:''};
-  constructor() { }
+  constructor(private utilyT:UtilityService) { }
   dismissible = true;
   ngOnInit(): void {
   }
   showtitleHeader(e){
     this.display_mode = e;
-    // this.alert.msg = !e ? 'Registration Successful' : 'registration failed!';
-    // this.alert.type = !e ? 'success' : 'danger'
+  }
+  show_page(){
+      this.utilyT.clientCallApi('error/server-error','G','').subscribe(res=>{
+        console.log(res);
+      })
   }
 
 }
