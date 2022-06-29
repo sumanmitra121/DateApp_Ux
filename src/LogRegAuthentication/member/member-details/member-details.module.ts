@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MemberDetailsComponent } from './member-details.component';
 import {RouterModule, Routes } from '@angular/router';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+
 const routes : Routes=[{path:'',component:MemberDetailsComponent}]
 
 
@@ -11,6 +13,7 @@ const routes : Routes=[{path:'',component:MemberDetailsComponent}]
     MemberDetailsComponent
   ],
   imports: [
+    NgxGalleryModule,
     CommonModule,
     TabsModule.forRoot(),
     RouterModule.forChild(routes)
