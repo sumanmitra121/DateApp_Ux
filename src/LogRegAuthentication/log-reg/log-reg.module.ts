@@ -10,6 +10,7 @@ import { GlobalErrorHandlingInterceptor } from 'src/_Interceptor/global-error-ha
 import { MemberListModule } from '../member/member-list/member-list.module';
 import { JwtInterceptor } from 'src/_Interceptor/Jwt.interceptor';
 import { MemberDetailsModule } from '../member/member-details/member-details.module';
+import { MemberEditModule } from '../member/member-edit/member-edit.module';
 
 const routes: Routes=[{
             path:'',component:MainComponent,
@@ -20,7 +21,8 @@ const routes: Routes=[{
               {path:'member-details/:_u_name',loadChildren: ()=> import('../member/member-details/member-details.module').then(m => m.MemberDetailsModule)},
               {path:'lists', loadChildren: () => import('../lists/lists.module').then(m=> m.ListsModule)},
               {path:'messages',loadChildren: ()=> import('../messages/messages.module').then(m => m.MessagesModule)},
-              {path:'server-error',loadChildren:()=>import('../../_Error_Module/-server-error/-server-error.module').then(m=>m.ServerErrorModule)}]
+              {path:'server-error',loadChildren:()=>import('../../_Error_Module/-server-error/-server-error.module').then(m=>m.ServerErrorModule)},
+              {path:'member/edit',loadChildren:()=>import('../member/member-edit/member-edit.module').then(m=>m.MemberEditModule)}]
             }]
 
 @NgModule({
@@ -29,6 +31,7 @@ const routes: Routes=[{
     // CardComponent
   ],
   imports: [
+    MemberEditModule,
     CommonModule,
     HttpClientModule,
     HeaderModule,
@@ -42,9 +45,10 @@ const routes: Routes=[{
   providers: [UtilityService,{ provide : ToastrService},
     {provide:HTTP_INTERCEPTORS,useClass: GlobalErrorHandlingInterceptor,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass: JwtInterceptor,multi:true},],
-  exports: [RouterModule,
+  exports: [RouterModule
     // CardComponent
-  ]
+  ],
+
 })
 export class LogRegModule {
   constructor(){}
