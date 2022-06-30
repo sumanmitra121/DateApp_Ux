@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {ReplaySubject } from 'rxjs';
@@ -7,6 +7,8 @@ import { menu } from 'src/Model/menu';
 import { userDtls } from 'src/Model/userDtls';
 import {ToastrService} from 'ngx-toastr';
 import { showMessage } from 'src/Model/showAlertmsg';
+import { member } from 'src/Model/member';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,13 +24,21 @@ export class UtilityService {
     else{
       return this.http.get(environment.url+_apiName);
     }
+
+  }
+
+  _memberlist(_apiName:any){
+    return this.http.get<member[]>(environment.url+_apiName);
+  }
+  _memberByname(_apiName:any,_uname:any){
+    return this.http.get<member>(environment.url+_apiName+'/'+_uname);
   }
   // getIsLoggedIn():Observable<userDtls>{return this._isLoggedIn.asObservable()}
   setIsLoggedIn(_user:userDtls){return this._isLoggedIn.next(_user);}
   logout(){
     localStorage.clear();
     this._isLoggedIn.next(null);
-    this.router.navigate(['/']);
+    this.router.navigate(['/main/home']);
   }
    getmenus(){return this.http.get<menu[]>('/assets/config/menu.json');}
    showToastr(_alert:showMessage){

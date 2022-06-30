@@ -14,8 +14,6 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   this.utilyT.getmenus().subscribe(res=>{
       this.menus = res;
-      console.log(res);
-
   })
   }
 
